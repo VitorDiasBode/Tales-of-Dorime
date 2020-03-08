@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Dorime/Dorime.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Skeleton/Skeleton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Mage/Mage.tscn" type="PackedScene" id=3]
+[ext_resource path="res://JumpThrough_Platform.tscn" type="PackedScene" id=4]
+
+[node name="Level" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+scale = Vector2( 0.993562, 0.26672 )
+polygon = PoolVector2Array( -1.35059, -1.75535, 901.806, 29.994, 1189.61, 552.293, 1417.12, 539.893, 1417.12, 779.845, 0, 839.833 )
+
+[node name="Dorime" parent="." instance=ExtResource( 1 )]
+position = Vector2( 64, -112 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 2 )]
+position = Vector2( 840, -72 )
+
+[node name="Mage" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1264, 96 )
+
+[node name="JumpThrough_Platform" parent="." instance=ExtResource( 4 )]
+position = Vector2( 424, -152 )

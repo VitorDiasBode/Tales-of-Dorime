@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Mage/Mage.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 400, 64 )
+
+[node name="Mage" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="SpawPoint" type="Position2D" parent="."]
+position = Vector2( 40, 0 )
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AreaVision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaVision"]
+shape = SubResource( 2 )
+[connection signal="area_entered" from="." to="." method="_on_Mage_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Mage_body_entered"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="body_entered" from="AreaVision" to="." method="_on_AreaVision_body_entered"]
+[connection signal="body_exited" from="AreaVision" to="." method="_on_AreaVision_body_exited"]

@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Dorime/Dorime.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 64 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Attack/Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.054902, 0.352941, 0 ), Color( 0, 0.054902, 0.352941, 1 ), Color( 0, 0.054902, 0.352941, 0 ) ]
+}
+
+[node name="Dorime" type="KinematicBody2D" groups=[
+"Player",
+]]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -64.0, 64.0 ],
+"_edit_vertical_guides_": [ -32.0, 32.0 ]
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -80 )
+current = true
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Attack"]
+color = Color( 0, 0.054902, 0.352941, 0 )
+polygon = PoolVector2Array( 32, 0, 120, -16, 216, 0, 120, 16 )
+
+[node name="AttackArea" type="Area2D" parent="Attack" groups=[
+"Attack",
+]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attack/AttackArea"]
+polygon = PoolVector2Array( 32, 0, 120, -16, 216, 0, 120, 16 )
+disabled = true
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 2 )
+
+[node name="TimerDamage" type="Timer" parent="."]
+wait_time = 0.2
+[connection signal="timeout" from="TimerDamage" to="." method="_on_TimerDamage_timeout"]
